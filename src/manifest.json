@@ -21,7 +21,7 @@
   "desktop": {
     "js": [
       "https://js.cybozu.com/momentjs/2.10.6/moment.min.js",
-      "https://js.cybozu.com/jquery/2.1.4/jquery.min.js",
+      "https://code.jquery.com/jquery-2.1.4.min.js",
       "js/desktop.js"
     ],
     "css": []
@@ -33,8 +33,8 @@
   "config": {
     "html": "html/config.html",
     "js": [
-      "https://js.cybozu.com/jquery/2.1.4/jquery.min.js",
-      "https://js.cybozu.com/jsrender/0.9.83/jsrender.min.js",
+      "https://code.jquery.com/jquery-2.1.4.min.js",
+      "https://cdnjs.cloudflare.com/ajax/libs/jsrender/0.9.83/jsrender.min.js",
       "js/jqColorPicker.min.js",
       "js/config.js"
     ],
