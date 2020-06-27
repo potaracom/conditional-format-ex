@@ -239,9 +239,16 @@ jQuery.noConflict();
       text_obj = CONFIG["text_row" + ti];
       for (var tf = 0; tf < text_obj.targetfield.length; tf++) {
         var targetfield = text_obj.targetfield[tf];
+        if (targetfield === "--detail--") {
+          continue;
+        }
 
         el_text = kintone.app.getFieldElements(targetfield);
-        if (!el_text && targetfield !== "--all--") {
+        if (
+          !el_text &&
+          targetfield !== "--all--" &&
+          targetfield !== "--list--"
+        ) {
           continue;
         }
 
@@ -264,7 +271,7 @@ jQuery.noConflict();
                     text_obj.type
                   )
                 ) {
-                  if (targetfield !== "--all--") {
+                  if (targetfield !== "--all--" && targetfield !== "--list--") {
                     changeFieldElement(el_text[tn], text_obj, "index");
                   } else {
                     for (var m = 0; m < all_el_text.length; m++) {
@@ -282,7 +289,7 @@ jQuery.noConflict();
                 text_obj.type
               )
             ) {
-              if (targetfield !== "--all--") {
+              if (targetfield !== "--all--" && targetfield !== "--list--") {
                 changeFieldElement(el_text[tn], text_obj, "index");
               } else {
                 for (var m = 0; m < all_el_text.length; m++) {
@@ -302,7 +309,7 @@ jQuery.noConflict();
                 text_obj.type2
               )
             ) {
-              if (targetfield !== "--all--") {
+              if (targetfield !== "--all--" && targetfield !== "--list--") {
                 changeFieldElement(el_text[dn], text_obj, "index");
               } else {
                 for (var m = 0; m < all_el_text.length; m++) {
@@ -331,9 +338,16 @@ jQuery.noConflict();
       text_obj = CONFIG["text_row" + ti];
       for (var tf = 0; tf < text_obj.targetfield.length; tf++) {
         var targetfield = text_obj.targetfield[tf];
+        if (targetfield === "--list--") {
+          continue;
+        }
 
         el_text = kintone.app.record.getFieldElement(targetfield);
-        if (!el_text && targetfield !== "--all--") {
+        if (
+          !el_text &&
+          targetfield !== "--all--" &&
+          targetfield !== "--detail--"
+        ) {
           continue;
         }
 
@@ -355,7 +369,7 @@ jQuery.noConflict();
                   text_obj.type
                 )
               ) {
-                if (targetfield !== "--all--") {
+                if (targetfield !== "--all--" && targetfield !== "--detail--") {
                   changeFieldElement(el_text, text_obj, "detail");
                 } else {
                   for (var m = 0; m < all_el_text.length; m++) {
@@ -373,7 +387,7 @@ jQuery.noConflict();
               text_obj.type
             )
           ) {
-            if (targetfield !== "--all--") {
+            if (targetfield !== "--all--" && targetfield !== "--detail--") {
               changeFieldElement(el_text, text_obj, "detail");
             } else {
               for (var m = 0; m < all_el_text.length; m++) {
@@ -391,7 +405,7 @@ jQuery.noConflict();
               text_obj.type2
             )
           ) {
-            if (targetfield !== "--all--") {
+            if (targetfield !== "--all--" && targetfield !== "--detail--") {
               changeFieldElement(el_text, text_obj, "detail");
             } else {
               for (var m = 0; m < all_el_text.length; m++) {
