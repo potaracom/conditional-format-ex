@@ -237,73 +237,77 @@ jQuery.noConflict();
 
     for (var ti = 1; ti <= TEXT_ROW_NUM; ti++) {
       text_obj = CONFIG["text_row" + ti];
-      el_text = kintone.app.getFieldElements(text_obj.targetfield);
-      if (!el_text && text_obj.targetfield !== "--all--") {
-        continue;
-      }
+      for (var tf = 0; tf < text_obj.targetfield.length; tf++) {
+        var targetfield = text_obj.targetfield[tf];
 
-      var dataType = text_obj["data-type"];
-      if (dataType === "text") {
-        for (var tn = 0; tn < records.length; tn++) {
-          field_obj = records[tn][text_obj.field];
-          if (
-            field_obj.type === "CHECK_BOX" ||
-            field_obj.type === "MULTI_SELECT"
-          ) {
-            if (field_obj.value.length === 0) {
-              field_obj.value[0] = "";
-            }
-            for (var i = 0; i < field_obj.value.length; i++) {
-              if (
-                checkTextConditionFormat(
-                  field_obj.value[i],
-                  text_obj.value,
-                  text_obj.type
-                )
-              ) {
-                if (text_obj.targetfield !== "--all--") {
-                  changeFieldElement(el_text[tn], text_obj, "index");
-                } else {
-                  for (var m = 0; m < all_el_text.length; m++) {
-                    changeFieldElement(all_el_text[m][tn], text_obj, "index");
+        el_text = kintone.app.getFieldElements(targetfield);
+        if (!el_text && targetfield !== "--all--") {
+          continue;
+        }
+
+        var dataType = text_obj["data-type"];
+        if (dataType === "text") {
+          for (var tn = 0; tn < records.length; tn++) {
+            field_obj = records[tn][text_obj.field];
+            if (
+              field_obj.type === "CHECK_BOX" ||
+              field_obj.type === "MULTI_SELECT"
+            ) {
+              if (field_obj.value.length === 0) {
+                field_obj.value[0] = "";
+              }
+              for (var i = 0; i < field_obj.value.length; i++) {
+                if (
+                  checkTextConditionFormat(
+                    field_obj.value[i],
+                    text_obj.value,
+                    text_obj.type
+                  )
+                ) {
+                  if (targetfield !== "--all--") {
+                    changeFieldElement(el_text[tn], text_obj, "index");
+                  } else {
+                    for (var m = 0; m < all_el_text.length; m++) {
+                      changeFieldElement(all_el_text[m][tn], text_obj, "index");
+                    }
                   }
                 }
               }
+              continue;
             }
-            continue;
-          }
-          if (
-            checkTextConditionFormat(
-              field_obj.value,
-              text_obj.value,
-              text_obj.type
-            )
-          ) {
-            if (text_obj.targetfield !== "--all--") {
-              changeFieldElement(el_text[tn], text_obj, "index");
-            } else {
-              for (var m = 0; m < all_el_text.length; m++) {
-                changeFieldElement(all_el_text[m][tn], text_obj, "index");
+            if (
+              checkTextConditionFormat(
+                field_obj.value,
+                text_obj.value,
+                text_obj.type
+              )
+            ) {
+              if (targetfield !== "--all--") {
+                changeFieldElement(el_text[tn], text_obj, "index");
+              } else {
+                for (var m = 0; m < all_el_text.length; m++) {
+                  changeFieldElement(all_el_text[m][tn], text_obj, "index");
+                }
               }
             }
           }
-        }
-      } else if (dataType === "date") {
-        for (var dn = 0; dn < records.length; dn++) {
-          field_obj = records[dn][text_obj.field];
-          if (
-            checkDateConditionFormat(
-              field_obj.value,
-              text_obj.value,
-              text_obj.type,
-              text_obj.type2
-            )
-          ) {
-            if (text_obj.targetfield !== "--all--") {
-              changeFieldElement(el_text[dn], text_obj, "index");
-            } else {
-              for (var m = 0; m < all_el_text.length; m++) {
-                changeFieldElement(all_el_text[m][dn], text_obj, "index");
+        } else if (dataType === "date") {
+          for (var dn = 0; dn < records.length; dn++) {
+            field_obj = records[dn][text_obj.field];
+            if (
+              checkDateConditionFormat(
+                field_obj.value,
+                text_obj.value,
+                text_obj.type,
+                text_obj.type2
+              )
+            ) {
+              if (targetfield !== "--all--") {
+                changeFieldElement(el_text[dn], text_obj, "index");
+              } else {
+                for (var m = 0; m < all_el_text.length; m++) {
+                  changeFieldElement(all_el_text[m][dn], text_obj, "index");
+                }
               }
             }
           }
@@ -325,70 +329,74 @@ jQuery.noConflict();
 
     for (var ti = 1; ti <= TEXT_ROW_NUM; ti++) {
       text_obj = CONFIG["text_row" + ti];
-      el_text = kintone.app.record.getFieldElement(text_obj.targetfield);
-      if (!el_text && text_obj.targetfield !== "--all--") {
-        continue;
-      }
+      for (var tf = 0; tf < text_obj.targetfield.length; tf++) {
+        var targetfield = text_obj.targetfield[tf];
 
-      var dataType = text_obj["data-type"];
-      if (dataType === "text") {
-        field_obj = record[text_obj.field];
-        if (
-          field_obj.type === "CHECK_BOX" ||
-          field_obj.type === "MULTI_SELECT"
-        ) {
-          if (field_obj.value.length === 0) {
-            field_obj.value[0] = "";
-          }
-          for (var i = 0; i < field_obj.value.length; i++) {
-            if (
-              checkTextConditionFormat(
-                field_obj.value[i],
-                text_obj.value,
-                text_obj.type
-              )
-            ) {
-              if (text_obj.targetfield !== "--all--") {
-                changeFieldElement(el_text, text_obj, "detail");
-              } else {
-                for (var m = 0; m < all_el_text.length; m++) {
-                  changeFieldElement(all_el_text[m], text_obj, "detail");
+        el_text = kintone.app.record.getFieldElement(targetfield);
+        if (!el_text && targetfield !== "--all--") {
+          continue;
+        }
+
+        var dataType = text_obj["data-type"];
+        if (dataType === "text") {
+          field_obj = record[text_obj.field];
+          if (
+            field_obj.type === "CHECK_BOX" ||
+            field_obj.type === "MULTI_SELECT"
+          ) {
+            if (field_obj.value.length === 0) {
+              field_obj.value[0] = "";
+            }
+            for (var i = 0; i < field_obj.value.length; i++) {
+              if (
+                checkTextConditionFormat(
+                  field_obj.value[i],
+                  text_obj.value,
+                  text_obj.type
+                )
+              ) {
+                if (targetfield !== "--all--") {
+                  changeFieldElement(el_text, text_obj, "detail");
+                } else {
+                  for (var m = 0; m < all_el_text.length; m++) {
+                    changeFieldElement(all_el_text[m], text_obj, "detail");
+                  }
                 }
               }
             }
+            continue;
           }
-          continue;
-        }
-        if (
-          checkTextConditionFormat(
-            field_obj.value,
-            text_obj.value,
-            text_obj.type
-          )
-        ) {
-          if (text_obj.targetfield !== "--all--") {
-            changeFieldElement(el_text, text_obj, "detail");
-          } else {
-            for (var m = 0; m < all_el_text.length; m++) {
-              changeFieldElement(all_el_text[m], text_obj, "detail");
+          if (
+            checkTextConditionFormat(
+              field_obj.value,
+              text_obj.value,
+              text_obj.type
+            )
+          ) {
+            if (targetfield !== "--all--") {
+              changeFieldElement(el_text, text_obj, "detail");
+            } else {
+              for (var m = 0; m < all_el_text.length; m++) {
+                changeFieldElement(all_el_text[m], text_obj, "detail");
+              }
             }
           }
-        }
-      } else if (dataType === "date") {
-        field_obj = record[text_obj.field];
-        if (
-          checkDateConditionFormat(
-            field_obj.value,
-            text_obj.value,
-            text_obj.type,
-            text_obj.type2
-          )
-        ) {
-          if (text_obj.targetfield !== "--all--") {
-            changeFieldElement(el_text, text_obj, "detail");
-          } else {
-            for (var m = 0; m < all_el_text.length; m++) {
-              changeFieldElement(all_el_text[m], text_obj, "detail");
+        } else if (dataType === "date") {
+          field_obj = record[text_obj.field];
+          if (
+            checkDateConditionFormat(
+              field_obj.value,
+              text_obj.value,
+              text_obj.type,
+              text_obj.type2
+            )
+          ) {
+            if (targetfield !== "--all--") {
+              changeFieldElement(el_text, text_obj, "detail");
+            } else {
+              for (var m = 0; m < all_el_text.length; m++) {
+                changeFieldElement(all_el_text[m], text_obj, "detail");
+              }
             }
           }
         }
