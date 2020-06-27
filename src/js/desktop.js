@@ -1,3 +1,6 @@
+/* eslint-disable max-depth */
+/* eslint-disable vars-on-top */
+/* eslint-disable no-var */
 /*
  * New Condition Format plug-in
  * Copyright (c) 2016 Cybozu
@@ -24,7 +27,7 @@ jQuery.noConflict();
 
   var RECORDS = [];
 
-  var TEXT_ROW_NUM = Number(CONFIG["text_row_number"]);
+  var TEXT_ROW_NUM = Number(CONFIG.text_row_number);
   for (var t = 1; t < TEXT_ROW_NUM + 1; t++) {
     CONFIG["text_row" + t] = JSON.parse(CONFIG["text_row" + t]);
   }
@@ -400,14 +403,12 @@ jQuery.noConflict();
 
     checkIndexConditionFormat(event.records);
     RECORDS = event.records;
-    return;
   });
 
   kintone.events.on("app.record.index.delete.submit", function(event) {
     RECORDS = RECORDS.filter(function(record) {
       return record.$id.value != event.recordId;
     });
-    return;
   });
 
   kintone.events.on("app.record.detail.show", function(event) {
@@ -415,7 +416,6 @@ jQuery.noConflict();
       return;
     }
     checkDetailConditionFormat(event.record);
-    return;
   });
 
   kintone.events.on("app.record.index.edit.submit.success", function(event) {
@@ -424,7 +424,7 @@ jQuery.noConflict();
     }
     var index = -1;
     RECORDS.forEach(function(record, i) {
-      if (record["$id"].value === event.record["$id"].value) {
+      if (record.$id.value === event.record.$id.value) {
         index = i;
       }
     });
