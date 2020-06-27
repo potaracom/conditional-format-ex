@@ -2,7 +2,7 @@
   "manifest_version": 1,
   "version": 3,
   "type": "APP",
-  "icon": "image/backtoschool-flat-49.png",
+  "icon": "image/palette.png",
   "name": {
     "ja": "条件書式プラグイン EX",
     "en": "Conditional Format EX",
