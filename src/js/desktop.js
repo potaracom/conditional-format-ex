@@ -10,6 +10,7 @@
  *  - Configure condition format priority
  *  - Add all field to format
  *  - Add Link style
+ *  - Selectable multiple fields
  * Copyright (c) 2019 potara
  *
  * Licensed under the MIT License
