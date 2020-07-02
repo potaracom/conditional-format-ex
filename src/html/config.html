@@ -7,10 +7,14 @@
  *  - Configure condition format priority
  *  - Add all field to format
  *  - Add Link style
+  *  - Selectable multiple fields
  * Copyright (c) 2019 potara
  *
  * Licensed under the MIT License
 -->
+<div class="cf-plugin-announce">
+  書式変更フィールドはCtrlを押した状態でクリックすることで複数選択できます。
+</div>
 <div id="cf-plugin">
   <div class="block cf-plugin-block">
     <table class="cf-plugin-text-table kintoneplugin-table">
@@ -77,36 +81,28 @@
                   <div class="kintoneplugin-select cf-ctype">
                     <select class="cf-plugin-column2-text">
                       <option value="">-----</option>
-                      <option
-                        value="match"
+                      <option value="match"
                         >{{html:terms.cf_text_column2_option1}}</option
                       >
-                      <option
-                        value="unmatch"
+                      <option value="unmatch"
                         >{{html:terms.cf_text_column2_option2}}</option
                       >
-                      <option
-                        value="=="
+                      <option value="=="
                         >{{html:terms.cf_text_column2_option3}}</option
                       >
-                      <option
-                        value="!="
+                      <option value="!="
                         >{{html:terms.cf_text_column2_option4}}</option
                       >
-                      <option
-                        value="<="
+                      <option value="<="
                         >{{html:terms.cf_text_column2_option5}}</option
                       >
-                      <option
-                        value="<"
+                      <option value="<"
                         >{{html:terms.cf_text_column2_option6}}</option
                       >
-                      <option
-                        value=">="
+                      <option value=">="
                         >{{html:terms.cf_text_column2_option7}}</option
                       >
-                      <option
-                        value=">"
+                      <option value=">"
                         >{{html:terms.cf_text_column2_option8}}</option
                       >
                     </select>
@@ -122,28 +118,22 @@
                   <div class="kintoneplugin-select cf-ctype">
                     <select class="cf-plugin-column2-date">
                       <option value="">-----</option>
-                      <option
-                        value="=="
+                      <option value="=="
                         >{{html:terms.cf_date_column2_option1}}</option
                       >
-                      <option
-                        value="!="
+                      <option value="!="
                         >{{html:terms.cf_date_column2_option2}}</option
                       >
-                      <option
-                        value="<="
+                      <option value="<="
                         >{{html:terms.cf_date_column2_option3}}</option
                       >
-                      <option
-                        value="<"
+                      <option value="<"
                         >{{html:terms.cf_date_column2_option4}}</option
                       >
-                      <option
-                        value=">="
+                      <option value=">="
                         >{{html:terms.cf_date_column2_option5}}</option
                       >
-                      <option
-                        value=">"
+                      <option value=">"
                         >{{html:terms.cf_date_column2_option6}}</option
                       >
                     </select>
@@ -178,12 +168,10 @@
                 </span>
                 <span class="kintoneplugin-select cf-date-type">
                   <select class="cf-plugin-column3-date-select2">
-                    <option
-                      value="before"
+                    <option value="before"
                       >{{html:terms.cf_date_column3_option1}}</option
                     >
-                    <option
-                      value="after"
+                    <option value="after"
                       >{{html:terms.cf_date_column3_option2}}</option
                     >
                   </select>
@@ -194,13 +182,17 @@
           <td>
             <div class="kintoneplugin-table-td-control">
               <div class="kintoneplugin-table-td-control-value">
-                <div class="kintoneplugin-select-outer">
-                  <div class="kintoneplugin-select cf-field-type">
-                    <select class="cf-plugin-column4">
-                      <option value="">-----</option>
-                      <option
-                        value="--all--"
+                <div class="kintoneplugin-multiselect-outer">
+                  <div class="kintoneplugin-multiselect cf-field-type">
+                    <select class="cf-plugin-column4" multiple size="6">
+                      <option value="--all--"
                         >{{html:terms.cf_text_column4_option1}}</option
+                      >
+                      <option value="--list--"
+                        >{{html:terms.cf_text_column4_option2}}</option
+                      >
+                      <option value="--detail--"
+                        >{{html:terms.cf_text_column4_option3}}</option
                       >
                     </select>
                   </div>
@@ -250,24 +242,19 @@
                 <div class="kintoneplugin-select-outer">
                   <div class="kintoneplugin-select cf-font">
                     <select class="cf-plugin-column7">
-                      <option
-                        value=""
+                      <option value=""
                         >{{html:terms.cf_text_column7_option1}}</option
                       >
-                      <option
-                        value="x-small"
+                      <option value="x-small"
                         >{{html:terms.cf_text_column7_option2}}</option
                       >
-                      <option
-                        value="small"
+                      <option value="small"
                         >{{html:terms.cf_text_column7_option3}}</option
                       >
-                      <option
-                        value="large"
+                      <option value="large"
                         >{{html:terms.cf_text_column7_option4}}</option
                       >
-                      <option
-                        value="x-large"
+                      <option value="x-large"
                         >{{html:terms.cf_text_column7_option5}}</option
                       >
                     </select>
@@ -282,24 +269,19 @@
                 <div class="kintoneplugin-select-outer">
                   <div class="kintoneplugin-select cf-font">
                     <select class="cf-plugin-column8">
-                      <option
-                        value=""
+                      <option value=""
                         >{{html:terms.cf_text_column8_option1}}</option
                       >
-                      <option
-                        value="bold"
+                      <option value="bold"
                         >{{html:terms.cf_text_column8_option2}}</option
                       >
-                      <option
-                        value="underline"
+                      <option value="underline"
                         >{{html:terms.cf_text_column8_option3}}</option
                       >
-                      <option
-                        value="line-through"
+                      <option value="line-through"
                         >{{html:terms.cf_text_column8_option4}}</option
                       >
-                      <option
-                        value="link"
+                      <option value="link"
                         >{{html:terms.cf_text_column8_option5}}</option
                       >
                     </select>
@@ -335,10 +317,5 @@
     >
       {{html:terms.cf_plugin_cancel}}
     </button>
-  </div>
-  <div class="cf-plugin-license">
-    <a href="https://www.flaticon.com/" target="_blank"
-      >Plugin icon is designed by Freepik from Flaticon</a
-    >
   </div>
 </div>

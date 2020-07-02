@@ -1,8 +1,8 @@
 {
   "manifest_version": 1,
-  "version": 2,
+  "version": 3,
   "type": "APP",
-  "icon": "image/backtoschool-flat-49.png",
+  "icon": "image/palette.png",
   "name": {
     "ja": "条件書式プラグイン EX",
     "en": "Conditional Format EX",
@@ -14,7 +14,7 @@
     "zh": "根据新设计风格的条件，更改字段颜色、背景色的插件。"
   },
   "homepage_url": {
-    "ja": "https://qiita.com/potara/items/551cd1f13f5f248322ce",
+    "ja": "https://potara.net/plugin/conditional-format-ex/",
     "en": "https://medium.com/@potara/conditional-format-ex-448643106baf",
     "zh": "https://medium.com/@potara/conditional-format-ex-448643106baf"
   },

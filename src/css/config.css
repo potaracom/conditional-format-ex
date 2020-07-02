@@ -7,6 +7,7 @@
  *  - Configure condition format priority
  *  - Add all field to format
  *  - Add Link style
+ *  - Selectable multiple fields
  * Copyright (c) 2019 potara
  *
  * Licensed under the MIT License
@@ -79,10 +80,6 @@
 
 .cf-plugin-submit {
   margin: 0 0 0 38px;
-}
-
-.cf-plugin-license {
-  margin: 20px 0 0 38px;
 }
 
 /* color picker */
@@ -195,4 +192,63 @@ i.color-paint-brush:hover {
 
 .hide {
   display: none;
+}
+
+.kintoneplugin-multiselect-outer {
+  display: inline-block;
+}
+
+.kintoneplugin-multiselect {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  box-sizing: border-box;
+  margin-right: 8px;
+  padding: 0 32px 0 8px;
+  min-width: 80px;
+  max-width: 280px;
+  /* height: 48px; */
+  border: 1px solid #e3e7e8;
+  background-color: #f7f9fa;
+  box-shadow: 1px 1px 1px #fff inset;
+  text-overflow: ellipsis;
+}
+
+.kintoneplugin-multiselect:hover {
+  background-color: #f4f7f8;
+  cursor: pointer;
+}
+
+.lt-ie9 .kintoneplugin-multiselect:hover {
+  background-color: transparent;
+}
+
+.kintoneplugin-multiselect select {
+  margin: 0;
+  min-width: 140px;
+  width: 120%;
+  /* height: 48px; */
+  outline: none;
+  border: 0 none;
+  background-color: transparent;
+  color: #3498db;
+  font-size: 13px;
+  cursor: pointer;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  -ms-appearance: none;
+  appearance: none;
+}
+
+.kintoneplugin-multiselect option:checked {
+  background: #3498db linear-gradient(0deg, #3498db 0%, #3498db 100%);
+}
+
+.kintoneplugin-multiselect option {
+  background-color: #fff;
+  color: #333;
+}
+
+.cf-plugin-announce {
+  margin-left: 38px;
 }

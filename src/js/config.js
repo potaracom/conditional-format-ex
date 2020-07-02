@@ -1,3 +1,5 @@
+/* eslint-disable vars-on-top */
+/* eslint-disable no-var */
 /*
  * New Condition Format plug-in
  * Copyright (c) 2016 Cybozu
@@ -7,6 +9,7 @@
  *  - Configure condition format priority
  *  - Add all field to format
  *  - Add Link style
+ *  - Selectable multiple fields\
  * Copyright (c) 2019 potara
  *
  * Licensed under the MIT License
@@ -19,7 +22,7 @@ jQuery.noConflict();
 
   var CONF = kintone.plugin.app.getConfig(PLUGIN_ID);
 
-  var TEXT_ROW_NUM = Number(CONF["text_row_number"]);
+  var TEXT_ROW_NUM = Number(CONF.text_row_number);
   for (var t = 1; t < TEXT_ROW_NUM + 1; t++) {
     CONF["text_row" + t] = JSON.parse(CONF["text_row" + t]);
   }
@@ -147,6 +150,8 @@ jQuery.noConflict();
         cf_text_column2_option7: "≧(以上)",
         cf_text_column2_option8: ">(より大きい)",
         cf_text_column4_option1: "全フィールド",
+        cf_text_column4_option2: "全フィールド(一覧)",
+        cf_text_column4_option3: "全フィールド(詳細)",
         cf_text_column7_option1: "変更なし",
         cf_text_column7_option2: "小さい",
         cf_text_column7_option3: "やや小さい",
@@ -192,6 +197,8 @@ jQuery.noConflict();
         cf_text_column2_option7: "≧ (equal or greater)",
         cf_text_column2_option8: "> (greater than)",
         cf_text_column4_option1: "All Fields",
+        cf_text_column4_option2: "All Fields(List)",
+        cf_text_column4_option3: "All Fields(Details)",
         cf_text_column7_option1: "Normal",
         cf_text_column7_option2: "Very Small",
         cf_text_column7_option3: "Small",
@@ -237,6 +244,8 @@ jQuery.noConflict();
         cf_text_column2_option7: "≧(大于或等于)",
         cf_text_column2_option8: ">(大于)",
         cf_text_column4_option1: "全部",
+        cf_text_column4_option2: "全部(列表页)",
+        cf_text_column4_option3: "全部(详情页)",
         cf_text_column7_option1: "不更改",
         cf_text_column7_option2: "小",
         cf_text_column7_option3: "稍小",
@@ -265,7 +274,7 @@ jQuery.noConflict();
 
     // To switch the display by the login user's language (English display in the case of Chinese)
     var lang = kintone.getLoginUser().language;
-    var i18n = lang in terms ? terms[lang] : terms["en"];
+    var i18n = lang in terms ? terms[lang] : terms.en;
 
     var configHtml = $("#cf-plugin").html();
     var tmpl = $.templates(configHtml);
@@ -329,7 +338,7 @@ jQuery.noConflict();
         $tr
           .find(".cf-plugin-column5-td i")
           .css("border-bottom-color", CONF[row].targetcolor)
-          .attr("value", CONF[row]["targetcolor"]);
+          .attr("value", CONF[row].targetcolor);
 
         var $bgColorPicker = $tr.find(".cf-plugin-column6-td i");
         $bgColorPicker.css("border-bottom-color", CONF[row].targetbgcolor);
@@ -409,7 +418,7 @@ jQuery.noConflict();
                 if (prop.enabled) {
                   $option.attr("value", escapeHtml(prop.code));
                   $option.attr("data-type", "text");
-                  $option.text(terms[lang]["cf_status_option"]);
+                  $option.text(terms[lang].cf_status_option);
                   $(
                     "#cf-plugin-text-tbody > tr:eq(0) .cf-plugin-column1"
                   ).append($option.clone());
@@ -645,7 +654,7 @@ jQuery.noConflict();
     }
 
     function checkConfigTextValues(config) {
-      var text_row_num = Number(config["text_row_number"]);
+      var text_row_num = Number(config.text_row_number);
       for (var ct = 1; ct <= text_row_num; ct++) {
         var text = JSON.parse(config["text_row" + ct]);
         if (text["data-type"] === "text") {
@@ -754,16 +763,20 @@ jQuery.noConflict();
         var dataType = getDataType($tr);
 
         var text = getValues(dataType, $tr);
-        if (text.field === "" && text.type === "" && text.targetfield === "") {
+        if (
+          text.field === "" &&
+          text.type === "" &&
+          text.targetfield.length === 0
+        ) {
           // Remove unnecessary row
           $("#cf-plugin-text-tbody > tr:eq(" + ct + ")").remove();
-          text_row_num = text_row_num - 1;
+          text_row_num -= 1;
           ct--;
           continue;
         }
         config["text_row" + ct] = JSON.stringify(text);
       }
-      config["text_row_number"] = String(text_row_num);
+      config.text_row_number = String(text_row_num);
       return config;
     }
 
