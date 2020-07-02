@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "scripts": {
     "start": "node scripts/npm-start.js",
-    "upload": "kintone-plugin-uploader dist/conditional-format-ex-ver3.plugin.zip --watch --waiting-dialog-ms 3000",
-    "develop": "kintone-plugin-packer --out ./dist/conditional-format-ex-ver3.plugin.zip --watch --ppk ./private.ppk src",
+    "upload": "kintone-plugin-uploader dist/conditional-format-ex-ver4.plugin.zip --watch --waiting-dialog-ms 3000",
+    "develop": "kintone-plugin-packer --out ./dist/conditional-format-ex-ver4.plugin.zip --watch --ppk ./private.ppk src",
     "lint": "eslint src/js"
   },
   "devDependencies": {
