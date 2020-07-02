@@ -248,3 +248,7 @@ i.color-paint-brush:hover {
   background-color: #fff;
   color: #333;
 }
+
+.cf-plugin-announce {
+  margin-left: 38px;
+}
