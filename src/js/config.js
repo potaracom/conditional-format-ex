@@ -17,7 +17,7 @@
 
 jQuery.noConflict();
 
-(function($, PLUGIN_ID) {
+(function ($, PLUGIN_ID) {
   "use strict";
 
   var CONF = kintone.plugin.app.getConfig(PLUGIN_ID);
@@ -38,7 +38,7 @@ jQuery.noConflict();
   var defaultColorPickerConfig = {
     opacity: false,
     doRender: false,
-    buildCallback: function($elm) {
+    buildCallback: function ($elm) {
       $elm.addClass("kintone-ui");
 
       var colorInstance = this.color;
@@ -56,7 +56,7 @@ jQuery.noConflict();
             '<div><label>V</label> <input type="number" max="100" min="0" class="cp-v" /></div>' +
             "</div>"
         )
-        .on("change", "input", function(e) {
+        .on("change", "input", function (e) {
           var value = this.value,
             className = this.className,
             type = className.split("-")[1],
@@ -77,7 +77,7 @@ jQuery.noConflict();
           "</div>"
       );
 
-      buttons.on("click", "#cp-submit", function(e) {
+      buttons.on("click", "#cp-submit", function (e) {
         var colorCode = "#" + colorPicker.color.colors.HEX;
 
         $elm.css("border-bottom-color", colorCode);
@@ -98,11 +98,11 @@ jQuery.noConflict();
         colorPicker.toggle(false);
       });
 
-      buttons.on("click", "#cp-cancel", function(e) {
+      buttons.on("click", "#cp-cancel", function (e) {
         colorPicker.toggle(false);
       });
     },
-    renderCallback: function($elm, toggled) {
+    renderCallback: function ($elm, toggled) {
       var colors = this.color.colors.RND;
       var colorCode = "#" + this.color.colors.HEX;
 
@@ -113,21 +113,21 @@ jQuery.noConflict();
         h: colors.hsv.h,
         s: colors.hsv.s,
         v: colors.hsv.v,
-        HEX: colorCode
+        HEX: colorCode,
       };
 
-      $("input", ".cp-panel").each(function() {
+      $("input", ".cp-panel").each(function () {
         this.value = modes[this.className.substr(3)];
       });
 
       this.$trigger = $elm;
     },
-    positionCallback: function($elm) {
+    positionCallback: function ($elm) {
       this.color.setColor($elm.attr("value"));
-    }
+    },
   };
 
-  $(document).ready(function() {
+  $(document).ready(function () {
     var terms = {
       ja: {
         cf_text_title: "文字条件書式",
@@ -174,7 +174,7 @@ jQuery.noConflict();
         cf_date_column3_option2: "後",
         cf_plugin_submit: "     保存   ",
         cf_plugin_cancel: "  キャンセル   ",
-        cf_required_field: "必須項目が入力されていません。"
+        cf_required_field: "必須項目が入力されていません。",
       },
       en: {
         cf_text_title: "Text Format Conditions",
@@ -221,7 +221,7 @@ jQuery.noConflict();
         cf_date_column3_option2: "after today",
         cf_plugin_submit: "     Save   ",
         cf_plugin_cancel: "  Cancel   ",
-        cf_required_field: "Required field is empty."
+        cf_required_field: "Required field is empty.",
       },
       zh: {
         cf_text_title: "文字条件格式",
@@ -268,8 +268,8 @@ jQuery.noConflict();
         cf_date_column3_option2: "后",
         cf_plugin_submit: "     保存   ",
         cf_plugin_cancel: "  取消   ",
-        cf_required_field: "有必填项未填写。"
-      }
+        cf_required_field: "有必填项未填写。",
+      },
     };
 
     // To switch the display by the login user's language (English display in the case of Chinese)
@@ -291,13 +291,9 @@ jQuery.noConflict();
 
     function checkRowNumber() {
       if ($("#cf-plugin-text-tbody > tr").length === 2) {
-        $("#cf-plugin-text-tbody > tr .removeList")
-          .eq(1)
-          .hide();
+        $("#cf-plugin-text-tbody > tr .removeList").eq(1).hide();
       } else {
-        $("#cf-plugin-text-tbody > tr .removeList")
-          .eq(1)
-          .show();
+        $("#cf-plugin-text-tbody > tr .removeList").eq(1).show();
       }
     }
 
@@ -310,10 +306,7 @@ jQuery.noConflict();
 
         var $tr = $("#cf-plugin-text-tbody > tr:eq(" + ti + ")");
         var row = "text_row" + ti;
-        $tr
-          .find(".cf-plugin-column1")
-          .val(CONF[row].field)
-          .change();
+        $tr.find(".cf-plugin-column1").val(CONF[row].field).change();
 
         var dataType = getDataType($tr);
         if (dataType === "text") {
@@ -370,7 +363,7 @@ jQuery.noConflict();
         kintone.api.url("/k/v1/preview/app/form/fields", true),
         "GET",
         param,
-        function(resp) {
+        function (resp) {
           for (var key in resp.properties) {
             if (!resp.properties.hasOwnProperty(key)) {
               continue;
@@ -438,35 +431,29 @@ jQuery.noConflict();
     }
 
     // Change color
-    $(".cf-plugin-column5").change(function() {
+    $(".cf-plugin-column5").change(function () {
       var $el = $(this);
 
       $el.css("color", $(this).val());
-      $el
-        .parent("div")
-        .find("i")
-        .css("border-bottom-color", $(this).val());
+      $el.parent("div").find("i").css("border-bottom-color", $(this).val());
 
       return true;
     });
 
     // Change backgroundcolor
-    $(".cf-plugin-column6").change(function() {
+    $(".cf-plugin-column6").change(function () {
       var $el = $(this);
 
       $el.css("background-color", $(this).val());
-      $el
-        .parent("div")
-        .find("i")
-        .css("border-bottom-color", $(this).val());
+      $el.parent("div").find("i").css("border-bottom-color", $(this).val());
 
       return true;
     });
 
-    $(".cf-plugin-column5, .cf-plugin-column6").bind("paste", function(event) {
+    $(".cf-plugin-column5, .cf-plugin-column6").bind("paste", function (event) {
       var $el = $(this);
       $el.attr("maxLength", "50");
-      setTimeout(function() {
+      setTimeout(function () {
         var val = $el.val();
         $el.attr("maxLength", "7");
         $el.val(val.replace(/\s/g, ""));
@@ -479,7 +466,7 @@ jQuery.noConflict();
       defaultColorPickerConfig
     );
 
-    $(document).keyup(function(event) {
+    $(document).keyup(function (event) {
       var TAB_KEY_CODE = 9;
       var ENTER_KEY_CODE = 13;
       var ESC_KEY_CODE = 27;
@@ -493,24 +480,17 @@ jQuery.noConflict();
     });
 
     // Add Row
-    $("#cf-plugin-text-tbody .addList").click(function() {
+    $("#cf-plugin-text-tbody .addList").click(function () {
       $("#cf-plugin-text-tbody > tr")
         .eq(0)
         .clone(true)
-        .insertAfter(
-          $(this)
-            .parent()
-            .parent()
-        );
+        .insertAfter($(this).parent().parent());
       checkRowNumber();
     });
 
     // Remove Row
-    $(".removeList").click(function() {
-      $(this)
-        .parent("td")
-        .parent("tr")
-        .remove();
+    $(".removeList").click(function () {
+      $(this).parent("td").parent("tr").remove();
       checkRowNumber();
     });
 
@@ -519,131 +499,131 @@ jQuery.noConflict();
       var error_messages = {
         ja: {
           text: {
-            "1":
+            1:
               "文字条件書式の" +
               row_num +
               "行目の必須入力項目を入力してください",
-            "2":
+            2:
               "文字条件書式の" +
               row_num +
               "行目の文字色には\nカラーコード「#000000-#FFFFFF」を入力してください",
-            "3":
+            3:
               "文字条件書式の" +
               row_num +
               "行目の背景色には\nカラーコード「#000000-#FFFFFF」を入力してください",
-            "4":
+            4:
               "文字条件書式の" +
               row_num +
               "行目の条件値または色に\n" +
-              "HTML特殊文字(&, <, >, \", ')を入力することはできません"
+              "HTML特殊文字(&, <, >, \", ')を入力することはできません",
           },
           date: {
-            "1":
+            1:
               "日付条件書式の" +
               row_num +
               "行目の必須入力項目を入力してください",
-            "2":
+            2:
               "日付条件書式の" +
               row_num +
               "行目の条件値には\n半角数字を入力してください",
-            "3":
+            3:
               "日付条件書式の" +
               row_num +
               "行目の条件値には\n整数を入力してください",
-            "4":
+            4:
               "日付条件書式の" +
               row_num +
               "行目の文字色には\nカラーコード「#000000-#FFFFFF」を入力してください",
-            "5":
+            5:
               "日付条件書式の" +
               row_num +
               "行目の背景色には\nカラーコード「#000000-#FFFFFF」を入力してください",
-            "6":
+            6:
               "日付条件書式の" +
               row_num +
-              "行目の条件値または色に\nHTML特殊文字(&, <, >, \", ')を入力することはできません"
-          }
+              "行目の条件値または色に\nHTML特殊文字(&, <, >, \", ')を入力することはできません",
+          },
         },
         en: {
           text: {
-            "1":
+            1:
               "Required fields for Text Format Conditions row " +
               row_num +
               " are empty.",
-            "2":
+            2:
               'Input "#000000 ~ #FFFFFF" for Font Color in Text Format Conditions row ' +
               row_num +
               ".",
-            "3":
+            3:
               'Input "#000000 ~ #FFFFFF" for Background Color in Text Format Conditions row ' +
               row_num +
               ".",
-            "4":
+            4:
               "Text Format Conditions row " +
               row_num +
-              " includes HTML Characters."
+              " includes HTML Characters.",
           },
           date: {
-            "1":
+            1:
               "Required fields for Date Format Conditions row " +
               row_num +
               " are empty.",
-            "2":
+            2:
               "Input integers for Value of Date Format Conditions row " +
               row_num +
               ".",
-            "3":
+            3:
               "Input integers for Value of Date Format Conditions row " +
               row_num +
               ".",
-            "4":
+            4:
               'Input "#000000 ~ #FFFFFF" for Font Color of Date Format Conditions row ' +
               row_num +
               ".",
-            "5":
+            5:
               'Input "#000000 ~ #FFFFFF" for Background Color of Date Format Conditions row ' +
               row_num +
               ".",
-            "6":
+            6:
               "Date Format Conditions row " +
               row_num +
-              " includes HTML Characters."
-          }
+              " includes HTML Characters.",
+          },
         },
         zh: {
           text: {
-            "1": "文字条件格式的第" + row_num + "行有必填项未填写",
-            "2":
+            1: "文字条件格式的第" + row_num + "行有必填项未填写",
+            2:
               "文字条件格式的第" +
               row_num +
               "行的字体颜色框中\n请输入颜色代码[#000000-#FFFFFF]",
-            "3":
+            3:
               "文字条件格式的第" +
               row_num +
               "行的背景色框中\n请输入颜色代码[#000000-#FFFFFF]",
-            "4":
+            4:
               "文字条件格式的第" +
               row_num +
-              "行的条件值或颜色不可输入\nHTML特殊符号(&, <, >, \", ')"
+              "行的条件值或颜色不可输入\nHTML特殊符号(&, <, >, \", ')",
           },
           date: {
-            "1": "日期条件格式的第" + row_num + "行有必填项未填写",
-            "2": "日期条件格式的第" + row_num + "行的条件值\n仅可输入半角数字",
-            "3": "日期条件格式的第" + row_num + "行的条件值\n仅可输入整数",
-            "4":
+            1: "日期条件格式的第" + row_num + "行有必填项未填写",
+            2: "日期条件格式的第" + row_num + "行的条件值\n仅可输入半角数字",
+            3: "日期条件格式的第" + row_num + "行的条件值\n仅可输入整数",
+            4:
               "日期条件格式的第" +
               row_num +
               "行的字体颜色\n请输入颜色代码[#000000-#FFFFFF]",
-            "5":
+            5:
               "日期条件格式的第" +
               row_num +
               "行的背景色\n请输入颜色代码[#000000-#FFFFFF]",
-            "6":
+            6:
               "日期条件格式的第" +
               row_num +
-              "行的条件值或颜色不可输入\nHTML特殊符号(&, <, >, \", ')"
-          }
-        }
+              "行的条件值或颜色不可输入\nHTML特殊符号(&, <, >, \", ')",
+          },
+        },
       };
 
       if (!error_messages[user_lang]) {
@@ -734,21 +714,15 @@ jQuery.noConflict();
         targetcolor: $tr.find(".cf-plugin-column5").val(),
         targetbgcolor: $tr.find(".cf-plugin-column6").val(),
         targetsize: $tr.find(".cf-plugin-column7").val(),
-        targetfont: $tr.find(".cf-plugin-column8").val()
+        targetfont: $tr.find(".cf-plugin-column8").val(),
       };
 
       if (dataType === "text") {
         config.type = $tr.find(".cf-plugin-column2-text").val();
-        config.value = $tr
-          .find(".cf-plugin-column3-text")
-          .val()
-          .toString();
+        config.value = $tr.find(".cf-plugin-column3-text").val().toString();
       } else if ((dataType = "date")) {
         config.type = $tr.find(".cf-plugin-column2-date").val();
-        config.value = $tr
-          .find(".cf-plugin-column3-date")
-          .val()
-          .toString();
+        config.value = $tr.find(".cf-plugin-column3-date").val().toString();
         config.type2 = $tr.find(".cf-plugin-column3-date-select2").val();
       }
 
@@ -780,7 +754,7 @@ jQuery.noConflict();
       return config;
     }
 
-    $("select.cf-plugin-column1").on("change", function(e) {
+    $("select.cf-plugin-column1").on("change", function (e) {
       var $tr = $(this).closest("tr");
       var type = $("option:selected", this).attr("data-type");
       if (type === "text") {
@@ -797,7 +771,7 @@ jQuery.noConflict();
     });
 
     // Save
-    $("#cf-submit").click(function() {
+    $("#cf-submit").click(function () {
       try {
         var config = createConfig();
         checkConfigTextValues(config);
@@ -808,7 +782,7 @@ jQuery.noConflict();
     });
 
     // Cancel
-    $("#cf-cancel").click(function() {
+    $("#cf-cancel").click(function () {
       window.history.back();
     });
     setDropdown();

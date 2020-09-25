@@ -18,7 +18,7 @@
 
 jQuery.noConflict();
 
-(function($, PLUGIN_ID) {
+(function ($, PLUGIN_ID) {
   "use strict";
 
   var CONFIG = kintone.plugin.app.getConfig(PLUGIN_ID);
@@ -73,11 +73,8 @@ jQuery.noConflict();
       case "link":
         el.style.cursor = "pointer";
         el.style.textDecoration = "underline";
-        $(el)
-          .find("a")
-          .contents()
-          .unwrap();
-        $(el).on("click", function() {
+        $(el).find("a").contents().unwrap();
+        $(el).on("click", function () {
           window.open($(el).text(), "_blank");
         });
         break;
@@ -183,9 +180,7 @@ jQuery.noConflict();
     }
 
     var field_value = moment(field).format("YYYY-MM-DD 00:00");
-    var condition_value = moment()
-      .add(num, "days")
-      .format("YYYY-MM-DD 00:00");
+    var condition_value = moment().add(num, "days").format("YYYY-MM-DD 00:00");
     var diff = moment(field_value).diff(moment(condition_value), "days");
 
     switch (condition_type) {
@@ -229,10 +224,10 @@ jQuery.noConflict();
     var text_obj, el_text, field_obj, all_el_text;
 
     all_el_text = Object.keys(records[0])
-      .map(function(fieldcode) {
+      .map(function (fieldcode) {
         return kintone.app.getFieldElements(fieldcode);
       })
-      .filter(function(el) {
+      .filter(function (el) {
         return el !== null;
       });
 
@@ -328,10 +323,10 @@ jQuery.noConflict();
     var text_obj, el_text, field_obj, all_el_text;
 
     all_el_text = Object.keys(record)
-      .map(function(fieldcode) {
+      .map(function (fieldcode) {
         return kintone.app.record.getFieldElement(fieldcode);
       })
-      .filter(function(el) {
+      .filter(function (el) {
         return el !== null;
       });
 
@@ -419,7 +414,7 @@ jQuery.noConflict();
     }
   }
 
-  kintone.events.on("app.record.index.show", function(event) {
+  kintone.events.on("app.record.index.show", function (event) {
     if (event.records.length <= 0) {
       return;
     }
@@ -428,31 +423,31 @@ jQuery.noConflict();
     RECORDS = event.records;
   });
 
-  kintone.events.on("app.record.index.delete.submit", function(event) {
-    RECORDS = RECORDS.filter(function(record) {
+  kintone.events.on("app.record.index.delete.submit", function (event) {
+    RECORDS = RECORDS.filter(function (record) {
       return record.$id.value != event.recordId;
     });
   });
 
-  kintone.events.on("app.record.detail.show", function(event) {
+  kintone.events.on("app.record.detail.show", function (event) {
     if (!event.record) {
       return;
     }
     checkDetailConditionFormat(event.record);
   });
 
-  kintone.events.on("app.record.index.edit.submit.success", function(event) {
+  kintone.events.on("app.record.index.edit.submit.success", function (event) {
     if (!event.record) {
       return;
     }
     var index = -1;
-    RECORDS.forEach(function(record, i) {
+    RECORDS.forEach(function (record, i) {
       if (record.$id.value === event.record.$id.value) {
         index = i;
       }
     });
     RECORDS[index] = event.record;
-    setTimeout(function() {
+    setTimeout(function () {
       checkIndexConditionFormat(RECORDS);
     }, 10);
 
