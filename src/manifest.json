@@ -27,7 +27,11 @@
     "css": []
   },
   "mobile": {
-    "js": [],
+    "js": [
+      "https://js.cybozu.com/momentjs/2.10.6/moment.min.js",
+      "https://code.jquery.com/jquery-2.1.4.min.js",
+      "js/mobile.js"
+    ],
     "css": []
   },
   "config": {
