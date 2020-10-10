@@ -225,7 +225,7 @@ jQuery.noConflict();
 
     all_el_text = Object.keys(records[0])
       .map(function (fieldcode) {
-        return kintone.app.getFieldElements(fieldcode);
+        return kintone.mobile.app.getFieldElements(fieldcode);
       })
       .filter(function (el) {
         return el !== null;
@@ -239,7 +239,7 @@ jQuery.noConflict();
           continue;
         }
 
-        el_text = kintone.app.getFieldElements(targetfield);
+        el_text = kintone.mobile.app.getFieldElements(targetfield);
         if (
           !el_text &&
           targetfield !== "--all--" &&
@@ -324,7 +324,7 @@ jQuery.noConflict();
 
     all_el_text = Object.keys(record)
       .map(function (fieldcode) {
-        return kintone.app.record.getFieldElement(fieldcode);
+        return kintone.mobile.app.record.getFieldElement(fieldcode);
       })
       .filter(function (el) {
         return el !== null;
@@ -338,7 +338,7 @@ jQuery.noConflict();
           continue;
         }
 
-        el_text = kintone.app.record.getFieldElement(targetfield);
+        el_text = kintone.mobile.app.record.getFieldElement(targetfield);
         if (
           !el_text &&
           targetfield !== "--all--" &&
@@ -414,7 +414,7 @@ jQuery.noConflict();
     }
   }
 
-  kintone.events.on("app.record.index.show", function (event) {
+  kintone.events.on("mobile.app.record.index.show", function (event) {
     if (event.records.length <= 0) {
       return;
     }
@@ -423,20 +423,22 @@ jQuery.noConflict();
     RECORDS = event.records;
   });
 
-  kintone.events.on("app.record.index.delete.submit", function (event) {
+  kintone.events.on("mobile.app.record.index.delete.submit", function (event) {
     RECORDS = RECORDS.filter(function (record) {
       return record.$id.value != event.recordId;
     });
   });
 
-  kintone.events.on("app.record.detail.show", function (event) {
+  kintone.events.on("mobile.app.record.detail.show", function (event) {
     if (!event.record) {
       return;
     }
     checkDetailConditionFormat(event.record);
   });
 
-  kintone.events.on("app.record.index.edit.submit.success", function (event) {
+  kintone.events.on("mobile.app.record.index.edit.submit.success", function (
+    event
+  ) {
     if (!event.record) {
       return;
     }
