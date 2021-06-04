@@ -1,6 +1,6 @@
 {
   "manifest_version": 1,
-  "version": 4,
+  "version": 5,
   "type": "APP",
   "icon": "image/palette.png",
   "name": {
