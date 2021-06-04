@@ -36,6 +36,36 @@ jQuery.noConflict();
     return dataType;
   }
 
+  function changeSampleCell(tr, property, value) {
+    var $sampleCell = $(tr).find("td.cf-plugin-column10").children("div");
+    if (property !== "text-decoration") {
+      $sampleCell.css(property, value);
+    }
+
+    switch (value) {
+      case "bold":
+        $sampleCell.css("font-weight", value);
+        $sampleCell.css("text-decoration", "none");
+        break;
+      case "underline":
+        $sampleCell.css("font-weight", "normal");
+        $sampleCell.css("text-decoration", value);
+        break;
+      case "line-through":
+        $sampleCell.css("font-weight", "normal");
+        $sampleCell.css("text-decoration", value);
+        break;
+      case "link":
+        $sampleCell.css("cursor", "pointer");
+        $sampleCell.css("text-decoration", "underline");
+        break;
+      case "":
+        $sampleCell.css("font-weight", "normal");
+        $sampleCell.css("text-decoration", "none");
+        break;
+    }
+  }
+
   var defaultColorPickerConfig = {
     opacity: false,
     doRender: false,
@@ -89,10 +119,14 @@ jQuery.noConflict();
 
         if ($el.hasClass("cf-plugin-column6")) {
           $el.css("background-color", colorCode);
+
+          changeSampleCell($el.closest("tr"), "background-color", colorCode);
         }
 
         if ($el.hasClass("cf-plugin-column5")) {
           $el.css("color", colorCode);
+
+          changeSampleCell($el.closest("tr"), "color", colorCode);
         }
 
         colorPicker.$trigger.css("border-bottom-color", colorCode);
@@ -141,6 +175,7 @@ jQuery.noConflict();
         cf_text_column6: "背景色",
         cf_text_column7: "文字サイズ",
         cf_text_column8: "文字装飾",
+        cf_text_column10: "サンプル",
         cf_status_option: "ステータス(プロセス管理)",
         cf_text_column2_option1: "条件値を含む",
         cf_text_column2_option2: "条件値を含まない",
@@ -188,6 +223,7 @@ jQuery.noConflict();
         cf_text_column6: "Background Color",
         cf_text_column7: "Font Size",
         cf_text_column8: "Style",
+        cf_text_column10: "Sample",
         cf_status_option: "Status(Process Management)",
         cf_text_column2_option1: "includes",
         cf_text_column2_option2: "doesn't include",
@@ -235,6 +271,7 @@ jQuery.noConflict();
         cf_text_column6: "背景色",
         cf_text_column7: "文字大小",
         cf_text_column8: "字体装饰",
+        cf_text_column10: "样本",
         cf_status_option: "状态(流程管理)",
         cf_text_column2_option1: "包含条件值",
         cf_text_column2_option2: "不包含条件值",
@@ -341,6 +378,33 @@ jQuery.noConflict();
         } else {
           $bgColorPicker.attr("value", "#808080");
         }
+
+        // サンプルセル
+        changeSampleCell($tr, "color", CONF[row].targetcolor);
+        changeSampleCell($tr, "background-color", CONF[row].targetbgcolor);
+        changeSampleCell($tr, "font-size", CONF[row].targetsize);
+        switch (CONF[row].targetfont) {
+          case "bold":
+            changeSampleCell($tr, "font-weight", CONF[row].targetfont);
+            changeSampleCell($tr, "text-decoration", "none");
+            break;
+          case "underline":
+            changeSampleCell($tr, "font-weight", "normal");
+            changeSampleCell($tr, "text-decoration", CONF[row].targetfont);
+            break;
+          case "line-through":
+            changeSampleCell($tr, "font-weight", "normal");
+            changeSampleCell($tr, "text-decoration", CONF[row].targetfont);
+            break;
+          case "link":
+            changeSampleCell($tr, "cursor", "pointer");
+            changeSampleCell($tr, "text-decoration", "underline");
+            break;
+          case "":
+            changeSampleCell($tr, "font-weight", "normal");
+            changeSampleCell($tr, "text-decoration", "none");
+            break;
+        }
       }
     }
 
@@ -438,6 +502,8 @@ jQuery.noConflict();
       $el.css("color", $(this).val());
       $el.parent("div").find("i").css("border-bottom-color", $(this).val());
 
+      changeSampleCell($el.closest("tr"), "color", $(this).val());
+
       return true;
     });
 
@@ -448,6 +514,22 @@ jQuery.noConflict();
       $el.css("background-color", $(this).val());
       $el.parent("div").find("i").css("border-bottom-color", $(this).val());
 
+      changeSampleCell($el.closest("tr"), "background-color", $(this).val());
+
+      return true;
+    });
+
+    // Change fontsize
+    $(".cf-plugin-column7").change(function () {
+      var $el = $(this);
+      changeSampleCell($el.closest("tr"), "font-size", $(this).val());
+      return true;
+    });
+
+    // Change fontdecoration
+    $(".cf-plugin-column8").change(function () {
+      var $el = $(this);
+      changeSampleCell($el.closest("tr"), "text-decoration", $(this).val());
       return true;
     });
 

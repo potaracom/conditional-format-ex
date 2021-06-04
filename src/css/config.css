@@ -252,3 +252,8 @@ i.color-paint-brush:hover {
 .cf-plugin-announce {
   margin-left: 38px;
 }
+
+.cf-plugin-column10 div {
+  padding: 14px 8px;
+  font-size: 14px;
+}
