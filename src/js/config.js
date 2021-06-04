@@ -1,3 +1,4 @@
+/* eslint-disable no-invalid-this */
 /* eslint-disable vars-on-top */
 /* eslint-disable no-var */
 /*
@@ -365,7 +366,7 @@ jQuery.noConflict();
         param,
         function (resp) {
           for (var key in resp.properties) {
-            if (!resp.properties.hasOwnProperty(key)) {
+            if (!Object.prototype.hasOwnProperty.call(resp.properties, key)) {
               continue;
             }
             var prop = resp.properties[key];
@@ -720,7 +721,7 @@ jQuery.noConflict();
       if (dataType === "text") {
         config.type = $tr.find(".cf-plugin-column2-text").val();
         config.value = $tr.find(".cf-plugin-column3-text").val().toString();
-      } else if ((dataType = "date")) {
+      } else if (dataType === "date") {
         config.type = $tr.find(".cf-plugin-column2-date").val();
         config.value = $tr.find(".cf-plugin-column3-date").val().toString();
         config.type2 = $tr.find(".cf-plugin-column3-date-select2").val();
