@@ -165,6 +165,8 @@ jQuery.noConflict();
   $(document).ready(function () {
     var terms = {
       ja: {
+        cf_notice_format_field:
+          "書式変更フィールドはCtrlを押した状態でクリックすることで複数選択できます。",
         cf_text_title: "文字条件書式",
         cf_date_title: "日付条件書式",
         cf_text_column1: "書式条件フィールド",
@@ -213,6 +215,8 @@ jQuery.noConflict();
         cf_required_field: "必須項目が入力されていません。",
       },
       en: {
+        cf_notice_format_field:
+          "You can select multiple format change fields by holding down Ctrl and clicking.",
         cf_text_title: "Text Format Conditions",
         cf_date_title: "Date Format Conditions",
         cf_text_column1: "Field with condition",
@@ -261,6 +265,8 @@ jQuery.noConflict();
         cf_required_field: "Required field is empty.",
       },
       zh: {
+        cf_notice_format_field:
+          "您可以通过按住 Ctrl 并单击来选择多个格式更改字段。",
         cf_text_title: "文字条件格式",
         cf_date_title: "日期条件格式",
         cf_text_column1: "条件字段",
