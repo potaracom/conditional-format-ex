@@ -437,23 +437,24 @@ jQuery.noConflict();
     checkDetailConditionFormat(event.record);
   });
 
-  kintone.events.on("mobile.app.record.index.edit.submit.success", function (
-    event
-  ) {
-    if (!event.record) {
-      return;
-    }
-    var index = -1;
-    RECORDS.forEach(function (record, i) {
-      if (record.$id.value === event.record.$id.value) {
-        index = i;
+  kintone.events.on(
+    "mobile.app.record.index.edit.submit.success",
+    function (event) {
+      if (!event.record) {
+        return;
       }
-    });
-    RECORDS[index] = event.record;
-    setTimeout(function () {
-      checkIndexConditionFormat(RECORDS);
-    }, 10);
+      var index = -1;
+      RECORDS.forEach(function (record, i) {
+        if (record.$id.value === event.record.$id.value) {
+          index = i;
+        }
+      });
+      RECORDS[index] = event.record;
+      setTimeout(function () {
+        checkIndexConditionFormat(RECORDS);
+      }, 10);
 
-    return event;
-  });
+      return event;
+    }
+  );
 })(jQuery, kintone.$PLUGIN_ID);
