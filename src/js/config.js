@@ -10,7 +10,8 @@
  *  - Configure condition format priority
  *  - Add all field to format
  *  - Add Link style
- *  - Selectable multiple fields\
+ *  - Selectable multiple fields
+ *  - Display sample in plugin config screen
  * Copyright (c) 2019 potara
  *
  * Licensed under the MIT License
