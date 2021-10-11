@@ -8,6 +8,7 @@
  *  - Add all field to format
  *  - Add Link style
  *  - Selectable multiple fields
+ *  - Display sample in plugin config screen
  * Copyright (c) 2019 potara
  *
  * Licensed under the MIT License
@@ -251,4 +252,9 @@ i.color-paint-brush:hover {
 
 .cf-plugin-announce {
   margin-left: 38px;
+}
+
+.cf-plugin-column10 div {
+  padding: 14px 8px;
+  font-size: 14px;
 }

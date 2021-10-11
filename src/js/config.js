@@ -1,3 +1,4 @@
+/* eslint-disable no-invalid-this */
 /* eslint-disable vars-on-top */
 /* eslint-disable no-var */
 /*
@@ -9,7 +10,8 @@
  *  - Configure condition format priority
  *  - Add all field to format
  *  - Add Link style
- *  - Selectable multiple fields\
+ *  - Selectable multiple fields
+ *  - Display sample in plugin config screen
  * Copyright (c) 2019 potara
  *
  * Licensed under the MIT License
@@ -33,6 +35,36 @@ jQuery.noConflict();
       .attr("data-type");
 
     return dataType;
+  }
+
+  function changeSampleCell(tr, property, value) {
+    var $sampleCell = $(tr).find("td.cf-plugin-column10").children("div");
+    if (property !== "text-decoration") {
+      $sampleCell.css(property, value);
+    }
+
+    switch (value) {
+      case "bold":
+        $sampleCell.css("font-weight", value);
+        $sampleCell.css("text-decoration", "none");
+        break;
+      case "underline":
+        $sampleCell.css("font-weight", "normal");
+        $sampleCell.css("text-decoration", value);
+        break;
+      case "line-through":
+        $sampleCell.css("font-weight", "normal");
+        $sampleCell.css("text-decoration", value);
+        break;
+      case "link":
+        $sampleCell.css("cursor", "pointer");
+        $sampleCell.css("text-decoration", "underline");
+        break;
+      case "":
+        $sampleCell.css("font-weight", "normal");
+        $sampleCell.css("text-decoration", "none");
+        break;
+    }
   }
 
   var defaultColorPickerConfig = {
@@ -88,10 +120,14 @@ jQuery.noConflict();
 
         if ($el.hasClass("cf-plugin-column6")) {
           $el.css("background-color", colorCode);
+
+          changeSampleCell($el.closest("tr"), "background-color", colorCode);
         }
 
         if ($el.hasClass("cf-plugin-column5")) {
           $el.css("color", colorCode);
+
+          changeSampleCell($el.closest("tr"), "color", colorCode);
         }
 
         colorPicker.$trigger.css("border-bottom-color", colorCode);
@@ -130,6 +166,8 @@ jQuery.noConflict();
   $(document).ready(function () {
     var terms = {
       ja: {
+        cf_notice_format_field:
+          "書式変更フィールドはCtrlを押した状態でクリックすることで複数選択できます。",
         cf_text_title: "文字条件書式",
         cf_date_title: "日付条件書式",
         cf_text_column1: "書式条件フィールド",
@@ -140,6 +178,7 @@ jQuery.noConflict();
         cf_text_column6: "背景色",
         cf_text_column7: "文字サイズ",
         cf_text_column8: "文字装飾",
+        cf_text_column10: "サンプル",
         cf_status_option: "ステータス(プロセス管理)",
         cf_text_column2_option1: "条件値を含む",
         cf_text_column2_option2: "条件値を含まない",
@@ -177,6 +216,8 @@ jQuery.noConflict();
         cf_required_field: "必須項目が入力されていません。",
       },
       en: {
+        cf_notice_format_field:
+          "You can select multiple format change fields by holding down Ctrl and clicking.",
         cf_text_title: "Text Format Conditions",
         cf_date_title: "Date Format Conditions",
         cf_text_column1: "Field with condition",
@@ -187,6 +228,7 @@ jQuery.noConflict();
         cf_text_column6: "Background Color",
         cf_text_column7: "Font Size",
         cf_text_column8: "Style",
+        cf_text_column10: "Sample",
         cf_status_option: "Status(Process Management)",
         cf_text_column2_option1: "includes",
         cf_text_column2_option2: "doesn't include",
@@ -224,6 +266,8 @@ jQuery.noConflict();
         cf_required_field: "Required field is empty.",
       },
       zh: {
+        cf_notice_format_field:
+          "您可以通过按住 Ctrl 并单击来选择多个格式更改字段。",
         cf_text_title: "文字条件格式",
         cf_date_title: "日期条件格式",
         cf_text_column1: "条件字段",
@@ -234,6 +278,7 @@ jQuery.noConflict();
         cf_text_column6: "背景色",
         cf_text_column7: "文字大小",
         cf_text_column8: "字体装饰",
+        cf_text_column10: "样本",
         cf_status_option: "状态(流程管理)",
         cf_text_column2_option1: "包含条件值",
         cf_text_column2_option2: "不包含条件值",
@@ -340,6 +385,33 @@ jQuery.noConflict();
         } else {
           $bgColorPicker.attr("value", "#808080");
         }
+
+        // サンプルセル
+        changeSampleCell($tr, "color", CONF[row].targetcolor);
+        changeSampleCell($tr, "background-color", CONF[row].targetbgcolor);
+        changeSampleCell($tr, "font-size", CONF[row].targetsize);
+        switch (CONF[row].targetfont) {
+          case "bold":
+            changeSampleCell($tr, "font-weight", CONF[row].targetfont);
+            changeSampleCell($tr, "text-decoration", "none");
+            break;
+          case "underline":
+            changeSampleCell($tr, "font-weight", "normal");
+            changeSampleCell($tr, "text-decoration", CONF[row].targetfont);
+            break;
+          case "line-through":
+            changeSampleCell($tr, "font-weight", "normal");
+            changeSampleCell($tr, "text-decoration", CONF[row].targetfont);
+            break;
+          case "link":
+            changeSampleCell($tr, "cursor", "pointer");
+            changeSampleCell($tr, "text-decoration", "underline");
+            break;
+          case "":
+            changeSampleCell($tr, "font-weight", "normal");
+            changeSampleCell($tr, "text-decoration", "none");
+            break;
+        }
       }
     }
 
@@ -365,7 +437,7 @@ jQuery.noConflict();
         param,
         function (resp) {
           for (var key in resp.properties) {
-            if (!resp.properties.hasOwnProperty(key)) {
+            if (!Object.prototype.hasOwnProperty.call(resp.properties, key)) {
               continue;
             }
             var prop = resp.properties[key];
@@ -437,6 +509,8 @@ jQuery.noConflict();
       $el.css("color", $(this).val());
       $el.parent("div").find("i").css("border-bottom-color", $(this).val());
 
+      changeSampleCell($el.closest("tr"), "color", $(this).val());
+
       return true;
     });
 
@@ -447,6 +521,22 @@ jQuery.noConflict();
       $el.css("background-color", $(this).val());
       $el.parent("div").find("i").css("border-bottom-color", $(this).val());
 
+      changeSampleCell($el.closest("tr"), "background-color", $(this).val());
+
+      return true;
+    });
+
+    // Change fontsize
+    $(".cf-plugin-column7").change(function () {
+      var $el = $(this);
+      changeSampleCell($el.closest("tr"), "font-size", $(this).val());
+      return true;
+    });
+
+    // Change fontdecoration
+    $(".cf-plugin-column8").change(function () {
+      var $el = $(this);
+      changeSampleCell($el.closest("tr"), "text-decoration", $(this).val());
       return true;
     });
 
@@ -720,7 +810,7 @@ jQuery.noConflict();
       if (dataType === "text") {
         config.type = $tr.find(".cf-plugin-column2-text").val();
         config.value = $tr.find(".cf-plugin-column3-text").val().toString();
-      } else if ((dataType = "date")) {
+      } else if (dataType === "date") {
         config.type = $tr.find(".cf-plugin-column2-date").val();
         config.value = $tr.find(".cf-plugin-column3-date").val().toString();
         config.type2 = $tr.find(".cf-plugin-column3-date-select2").val();

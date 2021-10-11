@@ -7,15 +7,16 @@
  *  - Configure condition format priority
  *  - Add all field to format
  *  - Add Link style
-  *  - Selectable multiple fields
+ *  - Selectable multiple fields
+ *  - Display sample in plugin config screen
  * Copyright (c) 2019 potara
  *
  * Licensed under the MIT License
 -->
-<div class="cf-plugin-announce">
-  書式変更フィールドはCtrlを押した状態でクリックすることで複数選択できます。
-</div>
 <div id="cf-plugin">
+  <div class="cf-plugin-announce">
+    {{html:terms.cf_notice_format_field}}
+  </div>
   <div class="block cf-plugin-block">
     <table class="cf-plugin-text-table kintoneplugin-table">
       <thead>
@@ -52,6 +53,9 @@
           </th>
           <th class="kintoneplugin-table-th">
             <span class="title">{{html:terms.cf_text_column8}}</span>
+          </th>
+          <th class="kintoneplugin-table-th">
+            <span class="title">{{html:terms.cf_text_column10}}</span>
           </th>
           <th class="kintoneplugin-table-th-blankspace"></th>
           <th class="kintoneplugin-table-th-blankspace"></th>
@@ -289,6 +293,9 @@
                 </div>
               </div>
             </div>
+          </td>
+          <td class="cf-plugin-column10">
+            <div>SAMPLE</div>
           </td>
           <td class="kintoneplugin-table-td-operation cf-plugin-column9">
             <button
