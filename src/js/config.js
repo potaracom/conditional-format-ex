@@ -827,11 +827,7 @@ jQuery.noConflict();
         var dataType = getDataType($tr);
 
         var text = getValues(dataType, $tr);
-        if (
-          text.field === "" &&
-          text.type === "" &&
-          text.targetfield.length === 0
-        ) {
+        if (text.field === "") {
           // Remove unnecessary row
           $("#cf-plugin-text-tbody > tr:eq(" + ct + ")").remove();
           text_row_num -= 1;
