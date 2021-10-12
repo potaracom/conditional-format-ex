@@ -4,7 +4,7 @@
   "scripts": {
     "start": "node scripts/npm-start.js",
     "upload": "kintone-plugin-uploader dist/conditional-format-ex-ver5.0.1.plugin.zip --watch --waiting-dialog-ms 3000",
-    "develop": "kintone-plugin-packer --out ./dist/conditional-format-ex-ver5.plugin.zip --watch --ppk ./private.ppk src",
+    "develop": "kintone-plugin-packer --out ./dist/conditional-format-ex-ver5.0.1.plugin.zip --watch --ppk ./private.ppk src",
     "lint": "eslint src/js"
   },
   "devDependencies": {
